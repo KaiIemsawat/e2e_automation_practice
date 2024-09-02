@@ -34,6 +34,13 @@ public class LoginPage extends BaseClass {
     return new HomePage();
   }
 
+  public AddressPage loginWhileCheckout(String email, String password) {
+    Action.type(loginEmailInput, email);
+    Action.type(passwordInput, password);
+    Action.click(driver, submitSignInBtn);
+    return new AddressPage();
+  }
+
   public AccountCreationPage createAccount(String email) {
     Action.type(createAccountEmailInput, email);
     Action.click(driver, submitCreateAccountBtn);
