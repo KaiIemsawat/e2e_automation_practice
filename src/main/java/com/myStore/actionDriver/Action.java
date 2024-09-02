@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 public class Action extends BaseClass {
 
@@ -17,6 +18,21 @@ public class Action extends BaseClass {
   public static void click(WebDriver driver, WebElement ele) {
     Actions act = new Actions(driver);
     act.moveToElement(ele).click().build().perform();
+  }
+
+  public static boolean jsClick(WebDriver driver, WebElement ele) {
+    boolean flag = false;
+    try {
+      JavascriptExecutor executor = (JavascriptExecutor) driver;
+      executor.executeScript("arguments[0].click();", ele);
+      flag = true;
+    } catch (Exception e) {
+      throw e;
+    } finally {
+      if (flag) System.out.println("Click Action is performed");
+      else System.out.println("Clink Action is not perform ");
+    }
+    return flag;
   }
 
   public static boolean findElement(WebDriver driver, WebElement ele) {
@@ -103,6 +119,26 @@ public class Action extends BaseClass {
       }
     }
     return flag;
+  }
+
+  /* Select */
+  public static boolean selectByVisibleText(String visibleText, WebElement ele) {
+    boolean flag = false;
+    try {
+      Select s = new Select(ele);
+      s.selectByVisibleText(visibleText);
+      flag = true;
+      return true;
+    } catch (Exception e) {
+      System.out.println(e);
+      return false;
+    } finally {
+      if (flag) {
+        System.out.println("Option selected bt VisibleText");
+      } else {
+        System.out.println("Option is not selected");
+      }
+    }
   }
 
   /* Wait */

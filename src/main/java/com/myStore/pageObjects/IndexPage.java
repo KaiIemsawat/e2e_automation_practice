@@ -38,6 +38,7 @@ public class IndexPage extends BaseClass {
   }
 
   public SearchResultPage searchProduct(String productSearchTerm) {
+    //    User 'Blouse' for search
     Action.type(searchProductInoutBox, productSearchTerm);
     Action.click(driver, searchProductBtn);
     return new SearchResultPage();

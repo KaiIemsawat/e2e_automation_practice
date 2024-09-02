@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SearchResultPage extends BaseClass {
 
-  @FindBy(xpath = "//a[@class='product_img_link' and @title='Faded Short Sleeve T-shirts']")
+  @FindBy(xpath = "//a[@class='product_img_link']")
   WebElement resultProduct;
 
   public SearchResultPage() {
