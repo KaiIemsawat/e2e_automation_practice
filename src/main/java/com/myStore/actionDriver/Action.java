@@ -14,12 +14,12 @@ public class Action extends BaseClass {
     js.executeScript("arguments[0].scrollIntoView();", ele);
   }
 
-  public void click(WebDriver driver, WebElement ele) {
+  public static void click(WebDriver driver, WebElement ele) {
     Actions act = new Actions(driver);
     act.moveToElement(ele).click().build().perform();
   }
 
-  public boolean findElement(WebDriver driver, WebElement ele) {
+  public static boolean findElement(WebDriver driver, WebElement ele) {
     boolean flag = false;
     try {
       ele.isDisplayed();
@@ -36,7 +36,7 @@ public class Action extends BaseClass {
     return flag;
   }
 
-  public boolean isDisplay(WebDriver driver, WebElement ele) {
+  public static boolean isDisplay(WebDriver driver, WebElement ele) {
     boolean flag = false;
     flag = findElement(driver, ele);
     if (flag) {
@@ -52,7 +52,7 @@ public class Action extends BaseClass {
     return flag;
   }
 
-  public boolean isSelected(WebDriver driver, WebElement ele) {
+  public static boolean isSelected(WebDriver driver, WebElement ele) {
     boolean flag = false;
     flag = findElement(driver, ele);
     if (flag) {
@@ -68,7 +68,7 @@ public class Action extends BaseClass {
     return flag;
   }
 
-  public boolean isEnable(WebDriver driver, WebElement ele) {
+  public static boolean isEnable(WebDriver driver, WebElement ele) {
     boolean flag = false;
     flag = findElement(driver, ele);
     if (flag) {
@@ -84,6 +84,27 @@ public class Action extends BaseClass {
     return flag;
   }
 
+  /* Type / send key*/
+  public static boolean type(WebElement ele, String s) {
+    boolean flag = false;
+    try {
+      flag = ele.isDisplayed();
+      ele.clear();
+      ele.sendKeys(s);
+      flag = true;
+    } catch (Exception e) {
+      System.out.println("Location not found");
+      flag = false;
+    } finally {
+      if (flag) {
+        System.out.println("Successfully entered value");
+      } else {
+        System.out.println("Unable to enter valus");
+      }
+    }
+    return flag;
+  }
+
   /* Wait */
   public static void implicitWait(WebDriver driver, int timeOut) {
     driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
@@ -91,5 +112,12 @@ public class Action extends BaseClass {
 
   public static void pageLoadTimeOut(WebDriver driver, int timeOut) {
     driver.manage().timeouts().pageLoadTimeout(timeOut, TimeUnit.SECONDS);
+  }
+
+  /* Metadata */
+  public static String getTitle(WebDriver driver) {
+    String title = driver.getTitle();
+    System.out.println("The title of this page is : " + title);
+    return title;
   }
 }
