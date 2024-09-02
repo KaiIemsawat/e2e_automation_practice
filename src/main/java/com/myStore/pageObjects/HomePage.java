@@ -19,10 +19,10 @@ public class HomePage extends BaseClass {
   }
 
   public boolean validateMyAddressBtn() {
-    return Action.isDisplay(driver, myAddressBtn);
+    return Action.isDisplayed(driver, myAddressBtn);
   }
 
   public boolean validateOrderHistoryAndDetailsBtn() {
-    return Action.isDisplay(driver, orderHistoryAndDetailsBtn);
+    return Action.isDisplayed(driver, orderHistoryAndDetailsBtn);
   }
 }

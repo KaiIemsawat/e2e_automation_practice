@@ -22,7 +22,7 @@ public class BaseClass {
       prop = new Properties();
       System.out.println("super constructor invoked");
       FileInputStream ip =
-          new FileInputStream(System.getProperty("user.dir") + "configs/Config.properties");
+          new FileInputStream(System.getProperty("user.dir") + "/configs/Config.properties");
       prop.load(ip);
       System.out.println("driver : " + driver);
     } catch (FileNotFoundException e) {
@@ -34,14 +34,16 @@ public class BaseClass {
 
   public static void launchApp() {
     //      setup driver
-    WebDriverManager.chromedriver().setup();
     String browserName = prop.getProperty("browser");
 
     if (browserName.contains("Chrome")) {
+      WebDriverManager.chromedriver().setup();
       driver = new ChromeDriver();
     } else if (browserName.contains("FireFox")) {
+      WebDriverManager.firefoxdriver().setup();
       driver = new FirefoxDriver();
     } else if (browserName.contains("IE")) {
+      WebDriverManager.iedriver().setup();
       driver = new InternetExplorerDriver();
     }
 

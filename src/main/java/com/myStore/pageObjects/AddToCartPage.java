@@ -40,7 +40,7 @@ public class AddToCartPage extends BaseClass {
   }
 
   public boolean validateAddToCart() {
-    return Action.isDisplay(driver, successfulAddedMessage);
+    return Action.isDisplayed(driver, successfulAddedMessage);
   }
 
   public OrderPage clinkOnProcessToCheckout() {

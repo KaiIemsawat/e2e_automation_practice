@@ -16,7 +16,7 @@ public class SearchResultPage extends BaseClass {
   }
 
   public boolean validateIsProductAvailable() {
-    return Action.isDisplay(driver, resultProduct);
+    return Action.isDisplayed(driver, resultProduct);
   }
 
   public AddToCartPage selectResultProduct() {

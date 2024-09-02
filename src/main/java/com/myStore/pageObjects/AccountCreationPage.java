@@ -16,6 +16,6 @@ public class AccountCreationPage extends BaseClass {
   }
 
   public boolean validateAccountCreatePage() {
-    return Action.isDisplay(driver, createAccountHeader);
+    return Action.isDisplayed(driver, createAccountHeader);
   }
 }

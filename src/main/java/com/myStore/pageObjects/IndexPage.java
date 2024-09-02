@@ -11,8 +11,8 @@ public class IndexPage extends BaseClass {
   @FindBy(xpath = "//a[class='login']")
   WebElement signInBtn;
 
-  @FindBy(xpath = "//img[@class='logo img-responsive']")
-  WebElement myStoreLogo;
+  @FindBy(xpath = "//span[@class='shop-phone']/strong")
+  WebElement storePhone;
 
   @FindBy(id = "searchbox")
   WebElement searchProductInoutBox;
@@ -29,8 +29,8 @@ public class IndexPage extends BaseClass {
     return new LoginPage();
   }
 
-  public boolean validateLogo() {
-    return Action.isDisplay(driver, myStoreLogo);
+  public boolean validatePhone() {
+    return Action.isDisplayed(driver, storePhone);
   }
 
   public String getIndexPageTitle() {
