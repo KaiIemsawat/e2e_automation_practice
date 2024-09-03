@@ -31,4 +31,9 @@ public class IndexPageTest extends BaseClass {
   public void verifyTitle() {
     Assert.assertEquals(indexPage.getIndexPageTitle(), "My Shop");
   }
+
+  @Test
+  public void verifySearchInput() {
+    Assert.assertTrue(indexPage.validateSearchInput());
+  }
 }

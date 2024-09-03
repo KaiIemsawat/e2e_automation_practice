@@ -107,18 +107,22 @@ public class Action extends BaseClass {
   public static boolean type(WebElement ele, String s) {
     boolean flag = false;
     try {
-      flag = ele.isDisplayed();
+      if (flag = ele.isDisplayed()) {
+        System.out.println("Found element..");
+      }
       ele.clear();
+      System.out.println("clearing text...");
       ele.sendKeys(s);
+      System.out.println("Sending text.....");
       flag = true;
     } catch (Exception e) {
-      System.out.println("Location not found");
+      System.out.println("Location not found" + e.getMessage());
       flag = false;
     } finally {
       if (flag) {
         System.out.println("Successfully entered value");
       } else {
-        System.out.println("Unable to enter valus");
+        System.out.println("Unable to enter values");
       }
     }
     return flag;

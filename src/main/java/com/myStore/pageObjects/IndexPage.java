@@ -20,6 +20,9 @@ public class IndexPage extends BaseClass {
   @FindBy(name = "submit_search")
   WebElement searchProductBtn;
 
+  @FindBy(id = "search_query_top")
+  WebElement searchInput;
+
   public IndexPage() {
     PageFactory.initElements(driver, this);
   }
@@ -37,9 +40,21 @@ public class IndexPage extends BaseClass {
     return Action.getTitle(driver);
   }
 
+  public boolean validateSearchInput() {
+    return Action.isDisplayed(driver, searchInput);
+  }
+
   public SearchResultPage searchProduct(String productSearchTerm) {
     //    User 'Blouse' for search
+    if (validateSearchInput()) {
+      System.out.println("Element is displayed...");
+    }
     Action.type(searchProductInoutBox, productSearchTerm);
+    Action.click(driver, searchProductBtn);
+    return new SearchResultPage();
+  }
+
+  public SearchResultPage clickOnSearchWithEmptyInput() {
     Action.click(driver, searchProductBtn);
     return new SearchResultPage();
   }
