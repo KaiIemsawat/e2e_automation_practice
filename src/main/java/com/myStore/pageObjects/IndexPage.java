@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class IndexPage extends BaseClass {
 
-  @FindBy(xpath = "//a[class='login']")
+  @FindBy(xpath = "//a[@class='login']")
   WebElement signInBtn;
 
   @FindBy(xpath = "//span[@class='shop-phone']/strong")

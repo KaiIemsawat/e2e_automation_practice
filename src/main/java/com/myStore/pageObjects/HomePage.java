@@ -25,4 +25,8 @@ public class HomePage extends BaseClass {
   public boolean validateOrderHistoryAndDetailsBtn() {
     return Action.isDisplayed(driver, orderHistoryAndDetailsBtn);
   }
+
+  public String getCurrentUrl() {
+    return driver.getCurrentUrl();
+  }
 }

@@ -46,4 +46,8 @@ public class LoginPage extends BaseClass {
     Action.click(driver, submitCreateAccountBtn);
     return new AccountCreationPage();
   }
+
+  public String validateTitle() {
+    return Action.getTitle(driver);
+  }
 }

@@ -17,6 +17,7 @@ public class Action extends BaseClass {
 
   public static void click(WebDriver driver, WebElement ele) {
     Actions act = new Actions(driver);
+    System.out.println(ele.getText());
     act.moveToElement(ele).click().build().perform();
   }
 
