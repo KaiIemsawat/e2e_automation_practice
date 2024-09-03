@@ -9,17 +9,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LoginPageTest extends BaseClass {
-
-  LoginPage loginPage;
+public class HomePageTest extends BaseClass {
   IndexPage indexPage;
   HomePage homePage;
+  LoginPage loginPage;
 
   @BeforeMethod
   public void setup() {
     launchApp();
-    loginPage = new LoginPage();
+    homePage = new HomePage();
     indexPage = new IndexPage();
+    loginPage = new LoginPage();
   }
 
   @AfterMethod
@@ -28,11 +28,16 @@ public class LoginPageTest extends BaseClass {
   }
 
   @Test
-  public void loginTest() {
+  public void verifyMyAddressBtn() {
     loginPage = indexPage.clickOnSignIn();
     homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
-    String actualURL = homePage.getCurrentUrl();
-    Assert.assertEquals(
-        actualURL, "http://www.automationpractice.pl/index.php?controller=my-account");
+    Assert.assertTrue(homePage.validateMyAddressBtn());
+  }
+
+  @Test
+  public void verifyOrderHistoryBtn() {
+    loginPage = indexPage.clickOnSignIn();
+    homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
+    Assert.assertTrue(homePage.validateOrderHistoryAndDetailsBtn());
   }
 }
