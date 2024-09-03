@@ -25,26 +25,41 @@ public class AddToCartPage extends BaseClass {
   @FindBy(xpath = "//h2/i[@class='icon-check']")
   WebElement successfulAddedMessage;
 
-  @FindBy(xpath = "Proceed to checkout")
+  @FindBy(xpath = "//a[@title='Proceed to checkout']")
   WebElement processToCheckoutBtn;
 
   @FindBy(xpath = "//h3[@class='page-product-heading']")
   WebElement dataSheet;
 
+  @FindBy(id = "our_price_display")
+  WebElement productPrice;
+
+  @FindBy(id = "layer_cart_product_quantity")
+  WebElement quantity;
+
+  @FindBy(xpath = "//span[@class='ajax_block_cart_total']")
+  WebElement totalProductPrice;
+
+  @FindBy(xpath = "//span[@class='ajax_cart_shipping_cost unvisible']")
+  WebElement shippingPrice;
+
   public AddToCartPage() {
     PageFactory.initElements(driver, this);
+  }
+
+  public double getSingleProductPrice() {
+    String prodPrice = productPrice.getText().substring(1);
+    System.out.println("Single unit price : " + prodPrice);
+    return Double.parseDouble(prodPrice);
   }
 
   public void enterQuantity(String quantity) throws InterruptedException {
     Action.type(quantityInputBox, quantity);
   }
 
-  public void selectingColorBlack() {
+  public void selectingColorBlack() throws InterruptedException {
+    Thread.sleep(1000);
     Action.click(driver, selectColorBlack);
-  }
-
-  public void clickOnDropdown() {
-    Action.click(driver, size);
   }
 
   public void clickOnAddToCart() {
@@ -59,13 +74,35 @@ public class AddToCartPage extends BaseClass {
     return Action.isDisplayed(driver, successfulAddedMessage);
   }
 
-  public OrderPage clinkOnProcessToCheckout() {
+  public OrderPage clinkOnProcessToCheckout() throws InterruptedException {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    wait.until(ExpectedConditions.visibilityOf(processToCheckoutBtn));
     Action.jsClick(driver, processToCheckoutBtn);
+    Thread.sleep(3000);
     return new OrderPage();
   }
 
   public boolean validateAddToCatPage() {
     return Action.isDisplayed(driver, dataSheet);
+  }
+
+  public int getQuantity() throws InterruptedException {
+    Thread.sleep(3000);
+    String productQuantity = quantity.getText();
+    System.out.println("Product quantity : " + productQuantity);
+    return Integer.parseInt(productQuantity);
+  }
+
+  public double getShippingCost() {
+    String shippingCost = shippingPrice.getText().substring(1);
+    System.out.println("shipping cost : " + shippingCost);
+    return Double.parseDouble(shippingCost);
+  }
+
+  public double getTotalPrice() {
+    String totalPrice = totalProductPrice.getText().substring(1);
+    System.out.println("Total price : " + totalPrice);
+    return Double.parseDouble(totalPrice);
   }
 
   public void selectingSize(String selectSize) {
