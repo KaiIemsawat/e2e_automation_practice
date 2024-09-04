@@ -7,12 +7,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class OrderPageTest extends BaseClass {
-
+public class E2eTest extends BaseClass {
   IndexPage indexPage;
   SearchResultPage searchResultPage;
   AddToCartPage addToCartPage;
   OrderPage orderPage;
+  LoginPage loginPage;
+  AddressPage addressPage;
+  ShippingPage shippingPage;
+  PaymentPage paymentPage;
+  OrderSummaryPage orderSummaryPage;
+  OrderConfirmationPage orderConfirmationPage;
 
   @BeforeMethod
   public void setup() {
@@ -29,7 +34,7 @@ public class OrderPageTest extends BaseClass {
   }
 
   @Test
-  public void verifyTotalCost() throws InterruptedException {
+  public void endToEndTest() throws InterruptedException {
     indexPage.clickOnSearchWithEmptyInput();
     searchResultPage = indexPage.clickOnSearchWithEmptyInput();
     addToCartPage = searchResultPage.selectBlouse();
@@ -38,20 +43,17 @@ public class OrderPageTest extends BaseClass {
     addToCartPage.enterQuantity("2");
     addToCartPage.clickOnAddToCart();
     orderPage = addToCartPage.clinkOnProcessToCheckout();
-    Assert.assertTrue(orderPage.getCartTitle());
-  }
-
-  @Test
-  public void verifyTotalPrice() throws InterruptedException {
-    indexPage.clickOnSearchWithEmptyInput();
-    searchResultPage = indexPage.clickOnSearchWithEmptyInput();
-    addToCartPage = searchResultPage.selectBlouse();
-    addToCartPage.selectingSize("L");
-    addToCartPage.selectingColorBlack();
-    addToCartPage.enterQuantity("2");
-    addToCartPage.clickOnAddToCart();
-    double totalPrice = addToCartPage.getTotalPrice();
-    orderPage = addToCartPage.clinkOnProcessToCheckout();
-    Assert.assertEquals(totalPrice, orderPage.getTotalPrice());
+    loginPage = orderPage.clickOnProceedToCheckOut();
+    addressPage =
+        loginPage.loginWhileCheckout(prop.getProperty("username"), prop.getProperty("password"));
+    shippingPage = addressPage.clickOnCheckout();
+    shippingPage.selectCheckBox();
+    paymentPage = shippingPage.clickProceedToCheckout();
+    orderSummaryPage = paymentPage.clickOnBankWire();
+    orderConfirmationPage = orderSummaryPage.clickOnConfirmOrder();
+    Assert.assertTrue(
+        orderConfirmationPage
+            .validateConfirmMessage()
+            .equals("Your order on My Shop is complete."));
   }
 }

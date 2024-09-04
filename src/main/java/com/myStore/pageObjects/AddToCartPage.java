@@ -100,6 +100,8 @@ public class AddToCartPage extends BaseClass {
   }
 
   public double getTotalPrice() {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    wait.until(ExpectedConditions.visibilityOf(totalProductPrice));
     String totalPrice = totalProductPrice.getText().substring(1);
     System.out.println("Total price : " + totalPrice);
     return Double.parseDouble(totalPrice);

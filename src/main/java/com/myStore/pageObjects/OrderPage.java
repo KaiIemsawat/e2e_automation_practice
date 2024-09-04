@@ -20,6 +20,9 @@ public class OrderPage extends BaseClass {
   @FindBy(xpath = "//a[@title='Continue shopping']")
   WebElement continueShoppingBtn;
 
+  @FindBy(id = "total_price")
+  WebElement totalPrice;
+
   public OrderPage() {
     PageFactory.initElements(driver, this);
   }
@@ -34,6 +37,11 @@ public class OrderPage extends BaseClass {
     String priceNoSign = productPrice.getText().substring(1);
     System.out.println("unit price : " + priceNoSign);
     return Double.parseDouble(priceNoSign);
+  }
+
+  public double getTotalPrice() {
+    String totalSummaryPrice = totalPrice.getText().substring(1);
+    return Double.parseDouble(totalSummaryPrice);
   }
 
   public LoginPage clickOnProceedToCheckOut() {
